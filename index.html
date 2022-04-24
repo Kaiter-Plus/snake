@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snake</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 游戏运行窗口 -->
+      <div id="stage">
+        <!-- 蛇 -->
+        <div id="snake">
+          <div></div>
+        </div>
+        <!-- 食物 -->
+        <div id="food">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+      <!-- 游戏结束 -->
+      <div id="over">
+        <div class="tip">GAME OVER</div>
+        <input class="reset" id="reset" type="button" value="再来一局">
+      </div>
+      <!-- 积分等级 -->
+      <div id="score-panel">
+        <!-- 分数 -->
+        <div>
+          SCORE: <span id="score">0</span>
+        </div>
+        <!-- 等级 -->
+        <div>
+          LEVEL: <span id="level">1 </span>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
