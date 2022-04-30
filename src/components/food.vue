@@ -10,7 +10,7 @@ const style = computed(() => {
 </script>
 
 <template>
-  <div class="w-2.5 h-2.5 absolute flex flex-wrap justify-evenly items-evenly" :style="style">
+  <div class="w-2.5 h-2.5 absolute grid grid-cols-2 grid-rows-2" :style="style">
     <div class="w-1 h-1 bg-violet-500 transform rotate-45"></div>
     <div class="w-1 h-1 bg-violet-500 transform rotate-45"></div>
     <div class="w-1 h-1 bg-violet-500 transform rotate-45"></div>
