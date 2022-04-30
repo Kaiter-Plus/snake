@@ -82,9 +82,6 @@ class GameController {
     let top: number = this.snake.top
     let left: number = this.snake.left
 
-    console.log(top, left);
-    
-
     switch (this.direction) {
       case Direction.UP:
         top -= 10
