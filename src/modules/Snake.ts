@@ -71,11 +71,12 @@ class Snake {
 
   // 移动身体
   moveBody() {
-    for (let i = this.bodies.length - 1; i > 0; i -= 1) {
-      const prevElement: HTMLElement = this.bodies[i - 1] as HTMLElement
-      const currentElement: HTMLElement = this.bodies[i] as HTMLElement
-      currentElement.style.top = `${prevElement.offsetTop}px`
-      currentElement.style.left = `${prevElement.offsetLeft}px`
+    const length = this.bodies.length
+    const lastElement = this.bodies[length - 1]
+    lastElement.style.top = `${this.bodies[0].offsetTop}px`
+    lastElement.style.left = `${this.bodies[0].offsetLeft}px`
+    if (length > 2) {
+      this.container.insertBefore(lastElement, this.bodies[1])
     }
   }
 
@@ -92,7 +93,7 @@ class Snake {
   reset() {
     this.head.style.top = `0`
     this.head.style.left = `0`
-    while(this.bodies.length != 1) {
+    while (this.bodies.length != 1) {
       const element = this.bodies[this.bodies.length - 1]
       element.parentNode?.removeChild(element)
     }
