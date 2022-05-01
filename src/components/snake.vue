@@ -1,5 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { computed } from 'vue'
+
+const style = computed(() => {
+  return `transform: translate(${0 * 10}px , ${0 * 10}px)`
+})
+</script>
 
 <template>
-  <div class="w-2 h-2 m-0.5 bg-dark-50 absolute transform top-5 left-5"></div>
+  <div class="snake" :style="style"></div>
 </template>
