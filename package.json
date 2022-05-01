@@ -4,12 +4,12 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --host --open",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "build": "vue-tsc --noEmit --skipLibCheck && vite build",
+    "preview": "vite preview --host --open"
   },
   "dependencies": {
     "modern-normalize": "^1.1.0",
-    "vue": "^3.2.31"
+    "vue": "^3.2.33"
   },
   "devDependencies": {
     "@types/node": "^17.0.30",
