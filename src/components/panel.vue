@@ -8,7 +8,7 @@
     </div>
     <div>
       LEVEL:
-      <span>0</span>
+      <span>1</span>
     </div>
   </div>
 </template>
