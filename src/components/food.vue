@@ -2,10 +2,10 @@
 import { computed } from 'vue'
 import { useFood } from '../composable'
 
-const { x, y } = useFood()
+const { foodPosition } = useFood()
 
 const style = computed(() => {
-  return `transform: translate(${10 * x.value}px , ${10 * y.value}px)`
+  return `transform: translate(${10 * foodPosition.x}px , ${10 * foodPosition.y}px)`
 })
 </script>
 

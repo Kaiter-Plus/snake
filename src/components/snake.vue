@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { useFood } from '../composable'
+
+const { foodPosition, changeFoodPosition } = useFood()
 
 const x = ref<number>(0)
 const y = ref<number>(0)
@@ -24,6 +27,11 @@ const move = () => {
     case 'ArrowLeft':
       x.value -= 1
       break
+  }
+  // 吃到食物
+  if (x.value === foodPosition.x && y.value === foodPosition.y) {
+    // 改变食物的位置
+    changeFoodPosition()
   }
   setTimeout(move, 300)
 }
