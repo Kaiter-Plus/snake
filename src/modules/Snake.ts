@@ -72,11 +72,11 @@ class Snake {
   // 移动身体
   moveBody() {
     const length = this.bodies.length
-    const lastElement = this.bodies[length - 1]
-    lastElement.style.top = `${this.bodies[0].offsetTop}px`
-    lastElement.style.left = `${this.bodies[0].offsetLeft}px`
-    if (length > 2) {
-      this.container.insertBefore(lastElement, this.bodies[1])
+    if (length > 1) {
+      const lastElement = this.bodies[length - 1]
+      lastElement.style.top = `${this.bodies[0].offsetTop}px`
+      lastElement.style.left = `${this.bodies[0].offsetLeft}px`
+      if (length > 2) this.container.insertBefore(lastElement, this.bodies[1])
     }
   }
 

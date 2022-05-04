@@ -1,3 +1,3 @@
 # Description
 
-A snake game based on vanilla JS
+A snake game based on vanilla TS
