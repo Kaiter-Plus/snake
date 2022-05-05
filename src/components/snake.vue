@@ -2,6 +2,8 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useFood, usePanel } from '../composable'
 
+type SnakeBody = Record<string, number>
+
 // 食物位置信息
 const { foodPosition, changeFoodPosition } = useFood()
 
@@ -9,17 +11,34 @@ const { foodPosition, changeFoodPosition } = useFood()
 const x = ref<number>(0)
 const y = ref<number>(0)
 
+// 蛇的身体
+const bodies = ref<SnakeBody[]>([])
+
+// 蛇
+const snake = ref<HTMLDivElement>()
+
 // 分数等级面板
 const { score, level } = usePanel()
 
 const direction = ref<string>('')
 
-const style = computed(() => {
+const style = computed<string>(() => {
   return `transform: translate(${10 * x.value}px , ${10 * y.value}px)`
 })
 
 // 蛇的移动
 const move = () => {
+  // 移动身体
+  const length = bodies.value.length
+  if (length > 0) {
+    const body = {
+      x: x.value,
+      y: y.value
+    }
+    bodies.value.pop()
+    bodies.value.splice(0, 0, body)
+  }
+  // 蛇头移动
   switch (direction.value) {
     case 'ArrowUp':
       y.value -= 1
@@ -40,8 +59,13 @@ const move = () => {
     changeFoodPosition()
     // 增加分数
     score.value += 1
+    // 增加身体
+    bodies.value.push({
+      x: x.value,
+      y: y.value
+    })
     // 增加等级
-    if (score.value % 1 === 0) level.value += 1
+    if (score.value % 10 === 0) level.value += 1
   }
   setTimeout(move, 300 - (level.value - 1) * 30)
 }
@@ -61,5 +85,12 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="snake" :style="style"></div>
+  <div class="snake" ref="snake">
+    <div class="snake-head" :style="style"></div>
+    <div
+      class="snake-body"
+      v-for="item in bodies"
+      :style="`transform: translate(${10 * item.x}px , ${10 * item.y}px)`"
+    ></div>
+  </div>
 </template>

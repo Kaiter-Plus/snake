@@ -1,5 +1,6 @@
 @import url('modern-normalize');
 
-.snake {
+.snake-head,
+.snake-body {
   @apply w-2.5 h-2.5 border-1 border-gray-300 bg-dark-50 absolute transform;
 }
