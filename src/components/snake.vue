@@ -14,9 +14,6 @@ const y = ref<number>(0)
 // 蛇的身体
 const bodies = ref<SnakeBody[]>([])
 
-// 蛇
-const snake = ref<HTMLDivElement>()
-
 // 分数等级面板
 const { score, level } = usePanel()
 
@@ -85,7 +82,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="snake" ref="snake">
+  <div class="snake">
     <div class="snake-head" :style="style"></div>
     <div
       class="snake-body"
