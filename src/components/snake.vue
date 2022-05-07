@@ -72,7 +72,17 @@ const move = () => {
 }
 
 const keydownHandler = (e: KeyboardEvent) => {
-  if (/Arrow.+/.test(e.key)) direction.value = e.key
+  if (/Arrow.+/.test(e.key)) {
+    let tempDirection = e.key
+    // 如果有身体了，则蛇不能回头
+    if (bodies.value[0]) {
+      if (direction.value === 'ArrowUp' && e.key === 'ArrowDown') tempDirection = 'ArrowUp'
+      if (direction.value === 'ArrowDown' && e.key === 'ArrowUp') tempDirection = 'ArrowDown'
+      if (direction.value === 'ArrowLeft' && e.key === 'ArrowRight') tempDirection = 'ArrowLeft'
+      if (direction.value === 'ArrowRight' && e.key === 'ArrowLeft') tempDirection = 'ArrowRight'
+    }
+    direction.value = tempDirection
+  }
 }
 
 onMounted(() => {
