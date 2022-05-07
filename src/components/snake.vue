@@ -52,6 +52,8 @@ const move = () => {
   }
   // 碰到墙壁, 游戏结束
   if (x.value < 0 || x.value > 29 || y.value < 0 || y.value > 29) return
+  // 碰到身体
+  if (bodies.value.some(body => x.value === body.x && y.value === body.y)) return
   // 吃到食物
   if (x.value === foodPosition.x && y.value === foodPosition.y) {
     // 改变食物的位置
