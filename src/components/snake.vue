@@ -2,10 +2,18 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useFood, usePanel } from '../composable'
 
+// 组件事件
+const emit = defineEmits<{
+  (e: 'foodEaten'): void
+  (e: 'gameOver', message: string): void
+}>()
+
 type SnakeBody = Record<string, number>
 
 // 食物位置信息
-const { foodPosition, changeFoodPosition } = useFood()
+const { foodPosition } = useFood()
+// 分数等级面板
+const { level } = usePanel()
 
 // 蛇头位置
 const x = ref<number>(0)
@@ -13,9 +21,6 @@ const y = ref<number>(0)
 
 // 蛇的身体
 const bodies = ref<SnakeBody[]>([])
-
-// 分数等级面板
-const { score, level } = usePanel()
 
 const direction = ref<string>('')
 
@@ -51,22 +56,17 @@ const move = () => {
       break
   }
   // 碰到墙壁, 游戏结束
-  if (x.value < 0 || x.value > 29 || y.value < 0 || y.value > 29) return alert('over! collide border')
+  if (x.value < 0 || x.value > 29 || y.value < 0 || y.value > 29) return emit('gameOver', 'over! collide border')
   // 碰到身体
-  if (bodies.value.some(body => x.value === body.x && y.value === body.y)) return alert('over! collide body')
+  if (bodies.value.some(body => x.value === body.x && y.value === body.y)) return emit('gameOver', 'over! collide body')
   // 吃到食物
   if (x.value === foodPosition.x && y.value === foodPosition.y) {
-    // 改变食物的位置
-    changeFoodPosition()
-    // 增加分数
-    score.value += 1
+    emit('foodEaten')
     // 增加身体
     bodies.value.push({
       x: x.value,
       y: y.value
     })
-    // 增加等级
-    if (score.value % 10 === 0) level.value += 1
   }
   setTimeout(move, 300 - (level.value - 1) * 30)
 }
