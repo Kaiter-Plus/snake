@@ -1,6 +1,21 @@
 import { reactive, ref } from 'vue'
 import { random } from '../utils'
 
+// 蛇头的位置
+const snakeHeadPosition = reactive({ x: 0, y: 0 })
+// 方向
+const direction = ref<string>('')
+// 蛇的身体
+type SnakeBody = Record<string, number>
+const bodies = ref<SnakeBody[]>([])
+export function useSnake() {
+  return {
+    direction,
+    bodies,
+    snakeHeadPosition
+  }
+}
+
 // 食物的位置
 const foodPosition = reactive({ x: random(), y: random() })
 // 改变食物的位置
