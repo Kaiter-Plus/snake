@@ -57,6 +57,7 @@ const move = () => {
   setTimeout(move, 300 - (level.value - 1) * 30)
 }
 
+// 吃到食物
 const foodEaten = () => {
   // 改变食物的位置
   changeFoodPosition()
@@ -66,6 +67,7 @@ const foodEaten = () => {
   if (score.value % 10 === 0 && level.value <= 10) level.value += 1
 }
 
+// 游戏结束提示
 const gameOver = (message: string) => {
   alert(message)
 }
