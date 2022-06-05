@@ -3,10 +3,10 @@ import { computed } from 'vue'
 import { useSnake } from '../composable'
 
 // 蛇头位置
-const { snakeHeadPosition, bodies } = useSnake()
+const { snake } = useSnake()
 
 const style = computed<string>(() => {
-  return `transform: translate(${10 * snakeHeadPosition.x}px , ${10 * snakeHeadPosition.y}px)`
+  return `transform: translate(${10 * snake.head.position.x}px , ${10 * snake.head.position.y}px)`
 })
 </script>
 
@@ -14,8 +14,8 @@ const style = computed<string>(() => {
   <div class="snake">
     <div class="snake-head" :style="style"></div>
     <div
+      v-for="item in snake.bodies"
       class="snake-body"
-      v-for="item in bodies"
       :style="`transform: translate(${10 * item.x}px , ${10 * item.y}px)`"
     ></div>
   </div>
