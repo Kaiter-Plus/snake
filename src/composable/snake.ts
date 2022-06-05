@@ -1,10 +1,5 @@
 import { reactive } from 'vue'
-import { GameState } from '../constants/GameState'
-
-interface Position {
-  x: number
-  y: number
-}
+import { GameState, Position } from '../constants'
 
 interface SnakeHead {
   position: Position

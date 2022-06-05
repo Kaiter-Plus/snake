@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { useSnake } from '../src/composable/snake'
-import { GameState } from '../src/constants/GameState'
+import { useSnake } from '../src/composable'
+import { GameState } from '../src/constants'
 
 describe('snake', () => {
   const { snake } = useSnake()

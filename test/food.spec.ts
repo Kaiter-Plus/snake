@@ -2,12 +2,12 @@ import { describe, expect, it } from 'vitest'
 import { useFood } from '../src/composable'
 
 describe('food', () => {
-  const { foodPosition, changeFoodPosition } = useFood()
+  const { food } = useFood()
   it('change position', () => {
-    foodPosition.x = 0
-    foodPosition.y = 0
-    changeFoodPosition()
-    expect(foodPosition.x).not.toBe(0)
-    expect(foodPosition.y).not.toBe(0)
+    food.position.x = 0
+    food.position.y = 0
+    food.changePosition()
+    expect(food.position.x).not.toBe(0)
+    expect(food.position.y).not.toBe(0)
   })
 })

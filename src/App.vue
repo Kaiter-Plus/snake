@@ -4,11 +4,11 @@ import Food from './components/food.vue'
 import Panel from './components/panel.vue'
 import Snake from './components/snake.vue'
 import { useFood, usePanel, useSnake } from './composable'
-import { GameState } from './constants/GameState'
+import { GameState } from './constants'
 // 蛇
 const { snake } = useSnake()
 // 食物
-const { foodPosition, changeFoodPosition } = useFood()
+const { food } = useFood()
 // 分数等级面板
 const { score, level } = usePanel()
 
@@ -19,7 +19,7 @@ const init = () => {
   // 如果时运行中状态，游戏继续；否则结束
   if (gameState === GameState.RUNNING) {
     // 吃到食物
-    if (snake.head.position.x === foodPosition.x && snake.head.position.y === foodPosition.y) {
+    if (snake.head.position.x === food.position.x && snake.head.position.y === food.position.y) {
       foodEaten()
     }
     setTimeout(init, 300 - (level.value - 1) * 30)
@@ -31,7 +31,7 @@ const init = () => {
 // 吃到食物
 const foodEaten = () => {
   // 改变食物的位置
-  changeFoodPosition()
+  food.changePosition()
   // 增加分数
   score.value += 1
   // 增加等级
