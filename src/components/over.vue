@@ -13,7 +13,7 @@ function reset() {
 <template>
   <div class="h100% flex flex-col justify-center items-center">
     <!-- title -->
-    <div class="font-mono text-5 mb-2">Game Over</div>
+    <div class="font-mono text-5 mb-2">GAME OVER</div>
     <!-- start button -->
     <button class="w-30 h-10 rounded-1 bg-transparent hover:bg-gray-200 font-bold" @click="reset">RESET</button>
   </div>
