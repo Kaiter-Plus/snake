@@ -1,8 +1,9 @@
 <script setup lang="ts">
-const emit = defineEmits<{
-  (e: 'start'): void
-}>()
+import { gameState } from '../composable'
+import { GameState } from '../constants'
+const emit = defineEmits<{ (e: 'start'): void }>()
 function gameStart() {
+  gameState.value = GameState.RUNNING
   emit('start')
 }
 </script>

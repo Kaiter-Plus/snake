@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted } from 'vue'
 import Food from './components/food.vue'
+import Over from './components/over.vue'
 import Panel from './components/panel.vue'
 import Snake from './components/snake.vue'
 import Start from './components/start.vue'
-import { useFood, usePanel, useSnake } from './composable'
+import { gameState, useFood, usePanel, useSnake } from './composable'
 import { GameState } from './constants'
 // 蛇
 const { snake } = useSnake()
@@ -12,12 +13,9 @@ const { snake } = useSnake()
 const { food } = useFood()
 // 分数等级面板
 const { score, level } = usePanel()
-// 游戏状态
-const gameState = ref(GameState.READY)
 
 // 开始游戏
 const start = () => {
-  gameState.value = GameState.RUNNING
   init()
 }
 
@@ -32,8 +30,6 @@ const init = () => {
       foodEaten()
     }
     setTimeout(init, 300 - (level.value - 1) * 30)
-  } else if (gameState.value === GameState.OVER) {
-    alert('game over')
   }
 }
 
@@ -91,6 +87,8 @@ onBeforeUnmount(() => {
         <!-- 食物 -->
         <Food />
       </template>
+      <!-- 游戏结算界面 -->
+      <Over v-else @reset="start" />
     </div>
     <!-- 分数面板 -->
     <Panel />

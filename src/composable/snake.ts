@@ -10,6 +10,7 @@ interface Snake {
   direction: string
   bodies: Position[]
   move: () => GameState
+  reset: () => void
 }
 
 const snake = reactive<Snake>({
@@ -58,6 +59,12 @@ const snake = reactive<Snake>({
       return GameState.OVER
 
     return GameState.RUNNING
+  },
+  // 重置
+  reset: () => {
+    snake.direction = ''
+    snake.head.position = { x: 0, y: 0 }
+    snake.bodies = []
   }
 })
 
