@@ -1,4 +1,5 @@
 export enum GameState {
+  READY,
   RUNNING,
   OVER
 }

@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import Food from './components/food.vue'
 import Panel from './components/panel.vue'
 import Snake from './components/snake.vue'
+import Start from './components/start.vue'
 import { useFood, usePanel, useSnake } from './composable'
 import { GameState } from './constants'
 // 蛇
@@ -11,19 +12,27 @@ const { snake } = useSnake()
 const { food } = useFood()
 // 分数等级面板
 const { score, level } = usePanel()
+// 游戏状态
+const gameState = ref(GameState.READY)
+
+// 开始游戏
+const start = () => {
+  gameState.value = GameState.RUNNING
+  init()
+}
 
 // 蛇的移动
 const init = () => {
   // 蛇的移动
-  const gameState = snake.move()
+  gameState.value = snake.move()
   // 如果时运行中状态，游戏继续；否则结束
-  if (gameState === GameState.RUNNING) {
+  if (gameState.value === GameState.RUNNING) {
     // 吃到食物
     if (snake.head.position.x === food.position.x && snake.head.position.y === food.position.y) {
       foodEaten()
     }
     setTimeout(init, 300 - (level.value - 1) * 30)
-  } else {
+  } else if (gameState.value === GameState.OVER) {
     alert('game over')
   }
 }
@@ -59,7 +68,6 @@ const keydownHandler = (e: KeyboardEvent) => {
 
 onMounted(() => {
   document.addEventListener('keydown', keydownHandler)
-  init()
 })
 
 onBeforeUnmount(() => {
@@ -74,10 +82,15 @@ onBeforeUnmount(() => {
   >
     <!-- 主舞台 -->
     <div class="w-76 h-76 bg-gray-300 border border-gray-200 border-2 relative">
-      <!-- 蛇 -->
-      <Snake />
-      <!-- 食物 -->
-      <Food />
+      <!-- 开始界面 -->
+      <Start v-if="gameState === GameState.READY" @start="start" />
+      <!-- 游戏界面 -->
+      <template v-else-if="gameState === GameState.RUNNING">
+        <!-- 蛇 -->
+        <Snake />
+        <!-- 食物 -->
+        <Food />
+      </template>
     </div>
     <!-- 分数面板 -->
     <Panel />
