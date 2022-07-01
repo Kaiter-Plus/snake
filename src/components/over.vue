@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { gameState, useSnake } from '../composable'
+import { gameState, usePanel, useSnake } from '../composable'
 import { GameState } from '../constants'
 const emit = defineEmits<{ (e: 'reset'): void }>()
 const { snake } = useSnake()
+const { resetPanel } = usePanel()
 function reset() {
   snake.reset()
+  resetPanel()
   gameState.value = GameState.RUNNING
   emit('reset')
 }
