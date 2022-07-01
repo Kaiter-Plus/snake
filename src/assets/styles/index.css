@@ -1,6 +1,11 @@
 @import url('modern-normalize');
 
+.bg-color {
+  background-color: #b7d4a8;
+}
+
 .snake-head,
 .snake-body {
-  @apply w-2.5 h-2.5 border-1 border-gray-300 bg-dark-50 absolute transform;
+  @apply w-2.5 h-2.5 border-1 bg-black absolute transform;
+  border-color: #b7d4a8;
 }

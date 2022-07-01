@@ -74,10 +74,10 @@ onBeforeUnmount(() => {
 <template>
   <!-- 主容器 -->
   <main
-    class="w-90 h-105 bg-slate-300 rounded-lg mt-20 mx-auto border border-gray-200 border-10 flex flex-col justify-around items-center"
+    class="w-90 h-105 bg-color rounded-lg mt-20 mx-auto border border-black border-10 flex flex-col justify-around items-center"
   >
     <!-- 主舞台 -->
-    <div class="w-76 h-76 bg-gray-300 border border-gray-200 border-2 relative">
+    <div class="w-76 h-76 border border-black border-2 relative">
       <!-- 开始界面 -->
       <Start v-if="gameState === GameState.READY" @start="start" />
       <!-- 游戏界面 -->
