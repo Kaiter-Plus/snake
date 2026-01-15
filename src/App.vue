@@ -13,24 +13,39 @@ const { snake } = useSnake()
 const { food } = useFood()
 // 分数等级面板
 const { score, level } = usePanel()
+// 记录游戏开始的时间戳
+let startTime = 0
+// 加速状态
+let speedup = false
 
 // 开始游戏
 const start = () => {
-  init()
+  requestAnimationFrame(init)
 }
 
-// 蛇的移动
-const init = () => {
-  // 蛇的移动
-  gameState.value = snake.move()
-  // 如果时运行中状态，游戏继续；否则结束
-  if (gameState.value === GameState.RUNNING) {
-    // 吃到食物
-    if (snake.head.position.x === food.position.x && snake.head.position.y === food.position.y) {
-      foodEaten()
+// 游戏初始化
+function init(currentTime: number) {
+  // 如果是第一次进入，记录当前时间戳
+  if (!startTime) startTime = currentTime
+  // 计算时间差
+  const elapsed = currentTime - startTime
+  // 速度
+  const speed = speedup ? 9 : level.value - 1
+  // 时间差大于300毫秒，蛇移动
+  if (elapsed > 300 - speed * 30) {
+    // 记录当前时间戳
+    startTime = currentTime
+    // 蛇移动时可以获取实时的游戏状态
+    gameState.value = snake.move()
+    // 如果时运行中状态，游戏继续；否则结束
+    if (gameState.value === GameState.RUNNING) {
+      // 吃到食物
+      if (snake.head.position.x === food.position.x && snake.head.position.y === food.position.y) {
+        foodEaten()
+      }
     }
-    setTimeout(init, 300 - (level.value - 1) * 30)
   }
+  requestAnimationFrame(init)
 }
 
 // 吃到食物
@@ -59,25 +74,37 @@ const keydownHandler = (e: KeyboardEvent) => {
       if (snake.direction === 'ArrowRight' && e.key === 'ArrowLeft') tempDirection = 'ArrowRight'
     }
     snake.direction = tempDirection
+    // 如果长按按键，加速
+    if (e.repeat) {
+      speedup = true
+    }
   }
 }
 
+const keyupHandler = () => {
+  speedup = false
+}
+
 onMounted(() => {
+  // 移动方向
   document.addEventListener('keydown', keydownHandler)
+  // 松开时，减速
+  document.addEventListener('keyup', keyupHandler)
 })
 
 onBeforeUnmount(() => {
   document.removeEventListener('keydown', keydownHandler)
+  document.removeEventListener('keyup', keyupHandler)
 })
 </script>
 
 <template>
   <!-- 主容器 -->
   <main
-    class="w-90 h-105 bg-color rounded-lg mt-20 mx-auto border border-black border-10 flex flex-col justify-around items-center"
+    class="w-90 h-105 bg-color rounded-lg mt-20 mx-auto border border-solid border-black border-10 flex flex-col justify-around items-center"
   >
     <!-- 主舞台 -->
-    <div class="w-76 h-76 border border-black border-2 relative">
+    <div class="w-76 h-76 border border-black border-solid border-2 relative">
       <!-- 开始界面 -->
       <Start v-if="gameState === GameState.READY" @start="start" />
       <!-- 游戏界面 -->

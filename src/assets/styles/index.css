@@ -1,4 +1,8 @@
-@import url('modern-normalize');
+*,
+:before,
+:after {
+  box-sizing: border-box;
+}
 
 .bg-color {
   background-color: #b7d4a8;
@@ -6,6 +10,6 @@
 
 .snake-head,
 .snake-body {
-  @apply w-2.5 h-2.5 border-1 bg-black absolute transform;
+  @apply w-2.5 h-2.5 border-solid border-1 bg-black absolute transform;
   border-color: #b7d4a8;
 }
